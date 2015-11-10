@@ -1,15 +1,36 @@
 public class Solution {
-    public List<List<String>> groupAnagrams(String[] strs) {
-        if (strs == null || strs.length == 0) return new ArrayList<List<String>>();
-        Map<String, List<String>> map = new HashMap<String, List<String>>();
-        Arrays.sort(strs);
-        for (String s : strs) {
-            char[] ca = s.toCharArray();
-            Arrays.sort(ca);
-            String keyStr = String.valueOf(ca);
-            if (!map.containsKey(keyStr)) map.put(keyStr, new ArrayList<String>());
-            map.get(keyStr).add(s);
+    /**
+     * @param strs: A list of strings
+     * @return: A list of strings
+     */
+    public List<String> anagrams(String[] strs) {
+        // write your code here
+        List<String> res = new ArrayList<String>();
+        if(strs.length == 0){
+            return res;
         }
-        return new ArrayList<List<String>>(map.values());
+        Map<String, List<String>> hm = new HashMap<String, List<String>>();
+        
+        for(String s : strs){
+            char[] tmp = s.toCharArray();
+            Arrays.sort(tmp);
+            String tempStr = new String(tmp);
+            
+            if(hm.containsKey(tempStr)){
+                hm.get(tempStr).add(s);
+            }else{
+                List<String> list = new ArrayList<String>();
+                list.add(s);
+                hm.put(tempStr,list);
+            }
+        }
+        
+        for(Map.Entry<String, List<String>> entry : hm.entrySet()){
+            if(entry.getValue().size() > 1){
+                res.addAll(entry.getValue());
+            }
+        }
+        
+        return res;
     }
 }
