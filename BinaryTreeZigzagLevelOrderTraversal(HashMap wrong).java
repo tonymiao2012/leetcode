@@ -22,7 +22,6 @@ public class Solution {
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
         if(root == null){
             return res;
-        }
         HashMap<Integer,ArrayList<Integer>> map = new HashMap<>();
         helper(root, map, 0);
         for(int i : map.keySet()){
