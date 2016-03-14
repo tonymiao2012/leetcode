@@ -66,7 +66,7 @@ public class Solution {
     
     public TrieNode searchNode(String str){
         Map<Character, TrieNode> t = root.children;
-        TrieNode res = null;
+        1TrieNode res = null;
         for(int i = 0; i < str.length(); i++){
             char c = str.charAt(i);
             if(t.containsKey(c)){
