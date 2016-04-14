@@ -15,30 +15,34 @@ public class Solution {
                                                  ParentTreeNode A,
                                                  ParentTreeNode B) {
         // Write your code here  
-        if(root == null){
+        if(root == null || (A == null || B == null)){
             return null;
+        }else if(A == null || B == null){
+            return A == null ? B : A;
         }
-        if(root == root.left || root == root.right){
-            return root;
-        }
-        //Divide 
-        ParentTreeNode left = lowestCommonAncestorII(root.left, A, B);
-        ParentTreeNode right = lowestCommonAncestorII(root.right, A, B);
+        ArrayList<ParentTreeNode> listA = new ArrayList<>();
+        ArrayList<ParentTreeNode> listB = new ArrayList<>();
         
-        //Conquer
-        if((left == A && right == B) ||
-           (right == A && left == B) ||
-           (left == A && root == B) ||
-           (root == A && right == B)){
-            if(root.parent != null){
-               root.parent = root;
-            }
-        }else if(left == A){
-            root = root.left;
-        }else if(right == B){
-            root = root.right;
+        while(A != root){
+            listA.add(0, A);
+            A = A.parent;
         }
-        return root;
+        listA.add(0, A);
+        
+        while(B != root){
+            listB.add(0, B);
+            B = B.parent;
+        }
+        listB.add(0, B);
+        
+        int size = Math.min(listA.size(), listB.size());
+        for(int i = 0; i < size; i++){
+            if(listA.get(i) != listB.get(i)){
+                return listA.get(i).parent;
+            }
+        }
+        
+        return listA.get(size - 1);
     }
 }
 
